@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  token: MyString
+  app_id: 1
+  locale: MyString
+  inactivated_at: 2013-11-28 13:47:15
+  banner: false
+  badge: false
+  sound: false
+  app_name: MyString
+  app_version: MyString
+  os_name: MyString
+  os_version: MyString
+  device_name: MyString
+  device_version: MyString
+
+two:
+  user_id: 1
+  token: MyString
+  app_id: 1
+  locale: MyString
+  inactivated_at: 2013-11-28 13:47:15
+  banner: false
+  badge: false
+  sound: false
+  app_name: MyString
+  app_version: MyString
+  os_name: MyString
+  os_version: MyString
+  device_name: MyString
+  device_version: MyString

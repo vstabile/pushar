@@ -1,0 +1,76 @@
+<%= form_for(@device) do |f| %>
+  <% if @device.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@device.errors.count, "error") %> prohibited this device from being saved:</h2>
+
+      <ul>
+      <% @device.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="form-group">
+    <%= f.label :app_id %>
+    <%= f.collection_select :app_id, Pushar::App.all, :id, :name_with_platform, {}, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :token %>
+    <%= f.text_field :token, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :user_id %>
+    <%= f.number_field :user_id, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :locale %>
+    <%= f.text_field :locale, class: "form-control" %>
+  </div>
+  <div class="app-group ios-app-group">
+    <div class="form-group">
+      <%= f.label :banner %>
+      <%= f.check_box :banner %>
+    </div>
+    <div class="form-group">
+      <%= f.label :badge %>
+      <%= f.check_box :badge %>
+    </div>
+    <div class="form-group">
+      <%= f.label :sound %>
+      <%= f.check_box :sound %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :app_name %>
+    <%= f.text_field :app_name, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :app_version %>
+    <%= f.text_field :app_version, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :os_name, "OS name" %>
+    <%= f.text_field :os_name, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :os_version, "OS version" %>
+    <%= f.text_field :os_version, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :device_name %>
+    <%= f.text_field :device_name, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :device_version %>
+    <%= f.text_field :device_version, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :inactivated_at %>
+    <%= f.datetime_select :inactivated_at, {:include_blank => true, :default => nil}, class: "form-control" %>
+  </div>
+  <div class="actions">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>
