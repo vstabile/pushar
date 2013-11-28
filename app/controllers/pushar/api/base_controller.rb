@@ -16,7 +16,7 @@ module Pushar
       def authenticate_api
         # API basic authentication
         authenticate_or_request_with_http_basic do |key, secret|
-          key && secret && secret == API_AUTH[key]
+          key && secret && secret == Pushar::Engine.config.authentication[key]
         end
       end
 

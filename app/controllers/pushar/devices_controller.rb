@@ -6,7 +6,7 @@ module Pushar
 
     # GET /devices
     def index
-      @devices = Device.all
+      @devices = Device.includes(:app).all
     end
 
     # GET /devices/1
@@ -51,7 +51,7 @@ module Pushar
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_device
-        @device = Device.find(params[:id])
+        @device = Device.includes(:app).find(params[:id])
       end
 
       # Only allow a trusted parameter "white list" through.
