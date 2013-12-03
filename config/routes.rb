@@ -10,4 +10,6 @@ Pushar::Engine.routes.draw do
       resources :devices, :only => [:create]
     end
   end
+
+  root to: "apps#index"
 end
