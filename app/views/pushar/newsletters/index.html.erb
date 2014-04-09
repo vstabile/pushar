@@ -1,0 +1,40 @@
+<div class="page-header">
+  <h1>Newsletters</h1>
+  <%= link_to 'New Newsletter', new_newsletter_path, class: "btn btn-primary btn-top" %>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Send Count</th>
+      <th>Open Count</th>
+      <th>Sent at</th>
+      <th>Updated</th>
+      <th>Created</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @newsletters.each do |newsletter| %>
+      <tr>
+        <td><%= newsletter.id %></td>
+        <td><%= newsletter.name %></td>
+        <td><%= newsletter.send_count %></td>
+        <td><%= newsletter.open_count %></td>
+        <td><%= l newsletter.sent_at, format: :short if newsletter.sent_at %></td>
+        <td><%= l newsletter.updated_at, format: :short %></td>
+        <td><%= l newsletter.created_at, format: :short %></td>
+        <td>
+          <%= link_to 'Send', newsletter, class: "btn btn-success btn-xs" %>
+          <%= link_to 'Show', newsletter, class: "btn btn-default btn-xs" %>
+          <%= link_to 'Edit', edit_newsletter_path(newsletter), class: "btn btn-primary btn-xs" %>
+          <%= link_to 'Destroy', newsletter, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

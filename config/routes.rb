@@ -4,6 +4,7 @@ Pushar::Engine.routes.draw do
 
   resources :apps
   resources :devices
+  resources :newsletters
 
   namespace :api do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true), :format => :json do

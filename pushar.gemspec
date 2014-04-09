@@ -7,11 +7,11 @@ require "pushar/version"
 Gem::Specification.new do |s|
   s.name        = "pushar"
   s.version     = Pushar::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Pushar."
-  s.description = "TODO: Description of Pushar."
+  s.authors     = ["Victor Morandini Stabile", "Alexandre Koji Imai Negrão"]
+  s.email       = ["vstabile@gmail.com", "akin@usp.br"]
+  s.homepage    = "http://www.bonitasmensagens.com.br"
+  s.summary     = "Gem de gerenciamento para envio de newsletters e push notifications."
+  s.description = "Gem de gerenciamento para envio de newsletters e push notifications."
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
