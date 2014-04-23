@@ -1,6 +1,6 @@
-class CreatePusharApps < ActiveRecord::Migration
+class CreatePusharCoreApps < ActiveRecord::Migration
   def change
-    create_table :pushar_apps do |t|
+    create_table :pushar_core_apps do |t|
       t.string :name, :null => false
       t.string :platform, :null => false
       t.text :apn_dev_cert

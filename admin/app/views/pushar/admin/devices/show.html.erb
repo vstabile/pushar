@@ -1,0 +1,76 @@
+<div class="page-header">
+  <h1>Device</h1>
+  <%= link_to 'Back', devices_path, class: "btn btn-default btn-top" %>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>App:</dt>
+  <dd><%= link_to @device.app.name_with_platform, app_path(@device.app_id) %></dd>
+</dl>
+
+<dl class="dl-horizontal">
+  <dt>Token:</dt>
+  <dd><pre><%= @device.token %></pre></dd>
+</dl>
+
+<dl class="dl-horizontal">
+  <dt>User:</dt>
+  <dd><%= @device.user_id %></dd>
+</dl>
+
+<dl class="dl-horizontal">
+  <dt>Locale:</dt>
+  <dd><%= @device.locale %></dd>
+</dl>
+
+<% if @device.app.platform == "ios" %>
+  <dl class="dl-horizontal">
+    <dt>Banner:</dt>
+    <dd><%= @device.banner %></dd>
+  </dl>
+
+  <dl class="dl-horizontal">
+    <dt>Badge:</dt>
+    <dd><%= @device.badge %></dd>
+  </dl>
+
+  <dl class="dl-horizontal">
+    <dt>Sound:</dt>
+    <dd><%= @device.sound %></dd>
+  </dl>
+<% end %>
+
+<dl class="dl-horizontal">
+  <dt>App name:</dt>
+  <dd><%= @device.app_name %></dd>
+</dl>
+
+<dl class="dl-horizontal">
+  <dt>App version:</dt>
+  <dd><%= @device.app_version %></dd>
+</dl>
+
+<dl class="dl-horizontal">
+  <dt>Os name:</dt>
+  <dd><%= @device.os_name %></dd>
+</dl>
+
+<dl class="dl-horizontal">
+  <dt>Os version:</dt>
+  <dd><%= @device.os_version %></dd>
+</dl>
+
+<dl class="dl-horizontal">
+  <dt>Device name:</dt>
+  <dd><%= @device.device_name %></dd>
+</dl>
+
+<dl class="dl-horizontal">
+  <dt>Device version:</dt>
+  <dd><%= @device.device_version %></dd>
+</dl>
+
+<dl class="dl-horizontal">
+  <dt>Inactivated at:</dt>
+  <dd><%= @device.inactivated_at %></dd>
+</dl>

@@ -4,6 +4,9 @@ source "https://rubygems.org"
 # Bundler will treat runtime dependencies like base dependencies, and
 # development dependencies will be added by default to the :development group.
 gemspec
+gem 'core', :path => 'core'
+gem 'admin', :path => 'admin'
+# gem 'api', :path => 'api'
 
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or
