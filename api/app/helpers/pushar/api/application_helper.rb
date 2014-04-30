@@ -1,5 +1,6 @@
 module Pushar
   module Api
-    VERSION = "0.0.1"
+    module ApplicationHelper
+    end
   end
 end

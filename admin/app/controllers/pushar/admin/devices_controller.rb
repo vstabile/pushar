@@ -2,7 +2,7 @@
 
 module Pushar
   module Admin
-    class DevicesController < ApplicationController
+    class DevicesController < Pushar::Admin::ApplicationController
       before_action :set_device, only: [:show, :edit, :update, :destroy]
 
       # GET /devices

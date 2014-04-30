@@ -2,7 +2,7 @@
 
 module Pushar
   module Admin
-    class AppsController < ApplicationController
+    class AppsController < Pushar::Admin::ApplicationController
       before_action :set_app, only: [:show, :edit, :update, :destroy]
 
       # GET /apps

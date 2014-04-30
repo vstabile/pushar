@@ -1,4 +1,6 @@
 require "api/engine"
 
-module Api
+module Pushar
+  module Api
+  end
 end
