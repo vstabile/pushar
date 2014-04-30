@@ -1,0 +1,34 @@
+<div class="page-header">
+  <h1>Subscription</h1>
+  <%= link_to 'Back', subscriptions_path, class: "btn btn-default btn-top" %>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>ID:</dt>
+  <dd><pre><%= @subscription.id %></pre></dd>
+</dl>
+
+<dl class="dl-horizontal">
+  <dt>Email:</dt>
+  <dd><%= @subscription.email %></dd>
+</dl>
+
+<dl class="dl-horizontal">
+  <dt>Send Count:</dt>
+  <dd><%= @subscription.send_count %></dd>
+</dl>
+
+<dl class="dl-horizontal">
+  <dt>Open Count:</dt>
+  <dd><%= @subscription.open_count %></dd>
+</dl>
+
+<dl class="dl-horizontal">
+  <dt>Last Opened At:</dt>
+  <dd><%= @subscription.last_opened_at %></dd>
+</dl>
+
+<dl class="dl-horizontal">
+  <dt>Unsubscribed At:</dt>
+  <dd><%= @subscription.unsubscribed_at %></dd>
+</dl>

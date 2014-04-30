@@ -1,0 +1,38 @@
+<%= form_for(@subscription) do |f| %>
+  <% if @subscription.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@subscription.errors.count, "error") %> prohibited this subscription from being saved:</h2>
+
+      <ul>
+      <% @subscription.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.text_field :email, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :send_count %>
+    <%= f.number_field :send_count, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :open_count %>
+    <%= f.number_field :open_count, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :last_opened_at %>
+    <%= f.datetime_select :last_opened_at, {:include_blank => true, :default => nil}, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :unsubscribed_at %>
+    <%= f.datetime_select :unsubscribed_at, {:include_blank => true, :default => nil}, class: "form-control" %>
+  </div>
+  <div class="actions">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

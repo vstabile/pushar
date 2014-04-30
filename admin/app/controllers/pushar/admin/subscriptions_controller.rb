@@ -57,7 +57,7 @@ module Pushar
 
         # Only allow a trusted parameter "white list" through.
         def subscription_params
-          params.require(:subscription).permit(:email, :send_count, :open_count, :last_opened_at. :unsubscribed_at)
+          params.require(:subscription).permit(:email, :send_count, :open_count, :last_opened_at, :unsubscribed_at)
         end
     end
   end
