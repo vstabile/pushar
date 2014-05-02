@@ -1,4 +1,6 @@
 require "core/engine"
 
-module Core
+module Pushar
+  module Core
+  end
 end

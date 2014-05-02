@@ -1,9 +1,13 @@
 require 'email_tracker/rack'
+require 'lib/email_tracker/rack'
 
 module Pushar
   module Core
     class Engine < ::Rails::Engine
-      isolate_namespace Core
+      isolate_namespace Pushar::Core
+
+      require_dependency 'email_tracker/rack'
+      require_dependency 'lib/email_tracker/rack'
       
       initializer 'core.action_controller' do |app|
         ActiveSupport.on_load :action_controller do

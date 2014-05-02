@@ -7,7 +7,7 @@ require "core/version"
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "core"
-  s.version     = Core::VERSION
+  s.version     = Pushar::Core::VERSION
   s.authors     = ["Alexandre Koji Imai Negrão"]
   s.email       = ["akin@usp.br"]
   s.homepage    = ""
