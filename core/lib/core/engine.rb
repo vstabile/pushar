@@ -1,3 +1,5 @@
+require 'email_tracker/rack'
+
 module Pushar
   module Core
     class Engine < ::Rails::Engine
