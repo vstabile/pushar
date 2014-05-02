@@ -1,4 +1,5 @@
 $:.push File.expand_path("../lib", __FILE__)
+require 'email_tracker/rack'
 
 # Maintain your gem's version:
 require "core/version"

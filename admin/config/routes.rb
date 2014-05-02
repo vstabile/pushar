@@ -3,6 +3,7 @@ module Pushar
     resources :apps
     resources :devices
     resources :subscriptions
+    resources :newsletters
 
     root to: "apps#index"
   end
