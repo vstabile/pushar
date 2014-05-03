@@ -1,8 +1,8 @@
-require_dependency "pushar/application_controller"
+# require_dependency "pushar/application_controller"
 
 module Pushar
   module Api
-    class BaseController < ::Pushar::Api::ApplicationController
+    class BaseController < ApplicationController
       skip_before_filter :verify_authenticity_token
       before_filter :authenticate_api
 
