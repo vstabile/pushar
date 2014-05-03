@@ -1,4 +1,4 @@
-# require_dependency "pushar/application_controller"
+require_dependency "pushar/application_controller"
 
 module Pushar
   module Api
