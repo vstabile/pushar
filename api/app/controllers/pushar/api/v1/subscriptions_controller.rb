@@ -3,7 +3,7 @@
 module Pushar
   module Api
     module V1
-      class SubscriptionsController < ::Pushar::Api::ApplicationController
+      class SubscriptionsController < Pushar::Api::V1::ApplicationController
         skip_before_filter :verify_authenticity_token
         before_action :set_subscription, only: [:destroy]
         respond_to :json

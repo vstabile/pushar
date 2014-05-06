@@ -1,6 +1,8 @@
 module Pushar
   module Api
-    class ApplicationController < ActionController::Base
+    module V1
+      class ApplicationController < ActionController::Base
+      end
     end
   end
 end
