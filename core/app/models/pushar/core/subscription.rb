@@ -1,8 +1,7 @@
 module Pushar
   module Core
     class Subscription < ActiveRecord::Base
-      validates :email, presence: true
-      validates_uniqueness_of :email
+      validates :email, uniqueness: true, email: true
     end
   end
 end
