@@ -6,7 +6,7 @@ module Pushar
       isolate_namespace Pushar::Core
 
       require_dependency 'email_tracker/rack'
-      
+
       initializer 'core.action_controller' do |app|
         ActiveSupport.on_load :action_controller do
           helper Pushar::Core::NewslettersHelper
