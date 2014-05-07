@@ -7,7 +7,9 @@ module Pushar
 
       # GET /apps
       def index
-        @apps = ::Pushar::Core::App.all
+        @q = ::Pushar::Core::App.unscoped.search(params[:q])
+        @q.sorts = 'created_at desc' if @q.sorts.empty?
+        @apps = @q.result(distinct: true).page(params[:page]).per(50)
       end
 
       # GET /apps/1

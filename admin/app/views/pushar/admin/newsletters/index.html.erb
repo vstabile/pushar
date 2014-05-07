@@ -2,37 +2,47 @@
   <h1>Newsletters</h1>
   <%= link_to 'New Newsletter', new_newsletter_path, class: "btn btn-primary btn-top" %>
 </div>
+<div class="row">
+  <div class="col-md-10">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th><%= sort_link @q, :id, "#" %></th>
+          <th><%= sort_link @q, :name, "Name" %></th>
+          <th><%= sort_link @q, :open_count, "Open Count" %></th>
+          <th><%= sort_link @q, :send_count, "Send Count" %></th>
+          <th><%= sort_link @q, :send_at, "Sent At" %></th>
+          <th><%= sort_link @q, :created_at, "Created" %></th>
+          <th>Actions</th>
+        </tr>
+      </thead>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Name</th>
-      <th>Open Count</th>
-      <th>Send Count</th>
-      <th>Sent At</th>
-      <th>Updated</th>
-      <th>Created</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @newsletters.each do |newsletter| %>
-      <tr>
-        <td><%= newsletter.id %></td>
-        <td><%= newsletter.name %></td>
-        <td><%= newsletter.open_count %></td>
-        <td><%= newsletter.send_count %></td>
-        <td><%= l newsletter.sent_at, format: :short if newsletter.sent_at %></td>
-        <td><%= l newsletter.updated_at, format: :short %></td>
-        <td><%= l newsletter.created_at, format: :short %></td>
-        <td>
-          <%= link_to 'Show', newsletter, class: "btn btn-default btn-xs" %>
-          <%= link_to 'Edit', edit_newsletter_path(newsletter), class: "btn btn-primary btn-xs" %>
-          <%= link_to 'Destroy', newsletter, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %>
-        </td>
-      </tr>
+      <tbody>
+        <% @newsletters.each do |newsletter| %>
+          <tr>
+            <td><%= newsletter.id %></td>
+            <td><%= newsletter.name %></td>
+            <td><%= newsletter.open_count %></td>
+            <td><%= newsletter.send_count %></td>
+            <td><%= l newsletter.sent_at, format: :short if newsletter.sent_at %></td>
+            <td><%= l newsletter.created_at, format: :short %></td>
+            <td>
+              <%= link_to 'Show', newsletter, class: "btn btn-default btn-xs" %>
+              <%= link_to 'Edit', edit_newsletter_path(newsletter), class: "btn btn-primary btn-xs" %>
+              <%= link_to 'Destroy', newsletter, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-2">
+    <%= search_form_for @q, :url => newsletters_path do |f| %>
+      <div class="form-group">
+        <%= f.label "Nome" %>
+        <%= f.text_field :name_eq, class: "form-control" %>
+      </div>
+      <%= f.submit "Search", class: "btn btn-primary btn-block" %>
     <% end %>
-  </tbody>
-</table>
+  </div>
+</div>

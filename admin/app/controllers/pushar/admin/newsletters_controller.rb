@@ -7,7 +7,9 @@ module Pushar
 
       # GET /newsletters
       def index
-        @newsletters = ::Pushar::Core::Newsletter.all
+        @q = ::Pushar::Core::Newsletter.unscoped.search(params[:q])
+        @q.sorts = 'created_at desc' if @q.sorts.empty?
+        @newsletters = @q.result(distinct: true).page(params[:page]).per(50)
       end
 
       # GET /newsletters/1

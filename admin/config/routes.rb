@@ -5,6 +5,6 @@ module Pushar
     resources :subscriptions
     resources :newsletters
 
-    root to: "apps#index"
+    root to: "subscriptions#index"
   end
 end

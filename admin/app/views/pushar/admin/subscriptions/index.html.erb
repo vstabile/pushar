@@ -2,36 +2,52 @@
   <h1>Subscriptions</h1>
   <%= link_to 'New Subscription', new_subscription_path, class: "btn btn-primary btn-top" %>
 </div>
+<div class="row">
+  <div class="col-md-10">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th><%= sort_link @q, :id, "#" %></th>
+          <th><%= sort_link @q, :email, "Email" %></th>
+          <th><%= sort_link @q, :send_count, "Send Count" %></th>
+          <th><%= sort_link @q, :open_count, "Open Count" %></th>
+          <th><%= sort_link @q, :last_opened_at, "Last Opened At" %></th>
+          <th><%= sort_link @q, :created_at, "Subscribed At" %></th>
+          <th><%= sort_link @q, :unsubscribed_at, "Unsubscribed At" %></th>
+          <th>Actions</th>
+        </tr>
+      </thead>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Email</th>
-      <th>Send Count</th>
-      <th>Open Count</th>
-      <th>Last Opened At</th>
-      <th>Unsibscribed At</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @subscriptions.each do |subscription| %>
-      <tr>
-        <td><%= subscription.id %></td>
-        <td><%= subscription.email %></td>
-        <td><%= subscription.send_count %></td>
-        <td><%= subscription.open_count %></td>
-        <td><%= l subscription.last_opened_at, format: :short if subscription.last_opened_at %></td>
-        <td><%= l subscription.unsubscribed_at, format: :short if subscription.unsubscribed_at %></td>
-        <td>
-          <%= link_to 'Show', subscription, class: "btn btn-default btn-xs" %>
-          <%= link_to 'Edit', edit_subscription_path(subscription), class: "btn btn-primary btn-xs" %>
-          <%= link_to 'Destroy', subscription, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %>
-        </td>
-      </tr>
+      <tbody>
+        <% @subscriptions.each do |subscription| %>
+          <tr>
+            <td><%= subscription.id %></td>
+            <td><%= subscription.email %></td>
+            <td><%= subscription.send_count %></td>
+            <td><%= subscription.open_count %></td>
+            <td><%= l subscription.last_opened_at, format: :short if subscription.last_opened_at %></td>
+            <td><%= l subscription.created_at, format: :short %></td>
+            <td><%= l subscription.unsubscribed_at, format: :short if subscription.unsubscribed_at %></td>
+            <td>
+              <%= link_to 'Show', subscription, class: "btn btn-default btn-xs" %>
+              <%= link_to 'Edit', edit_subscription_path(subscription), class: "btn btn-primary btn-xs" %>
+              <%= link_to 'Unsubscribe', subscription, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs", style: "margin-top:5px" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    
+    <%= paginate @subscriptions %>
+  </div>
+  <div class="col-md-2">
+    <%= search_form_for @q, :url => subscriptions_path do |f| %>
+      <div class="form-group">
+        <%= f.label "Email" %>
+        <%= f.text_field :email_eq, class: "form-control" %>
+      </div>
+      <%= f.submit "Search", class: "btn btn-primary btn-block" %>
     <% end %>
-  </tbody>
-</table>
+  </div>
+</div>
 

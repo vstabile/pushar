@@ -2,33 +2,45 @@
   <h1>Apps</h1>
   <%= link_to 'New App', new_app_path, class: "btn btn-primary btn-top" %>
 </div>
+<div class="row">
+  <div class="col-md-10">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th><%= sort_link @q, :id, "#" %></th>
+          <th><%= sort_link @q, :name, "Name" %></th>
+          <th><%= sort_link @q, :platform, "Platform" %></th>
+          <th><%= sort_link @q, :total_devices, "Total devices" %></th>
+          <th><%= sort_link @q, :active_devices, "Active devices" %></th>
+          <th>Actions</th>
+        </tr>
+      </thead>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Name</th>
-      <th>Platform</th>
-      <th>Total devices</th>
-      <th>Active devices</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @apps.each do |app| %>
-      <tr>
-        <td><%= app.id %></td>
-        <td><%= app.name %></td>
-        <td><%= app.platform %></td>
-        <td><%= app.devices_count %></td>
-        <td><%= app.devices_count - app.inactive_devices_count %></td>
-        <td>
-          <%= link_to 'Show', app_path(app), class: "btn btn-default btn-xs" %>
-          <%= link_to 'Edit', edit_app_path(app), class: "btn btn-primary btn-xs" %>
-          <%= link_to 'Destroy', app, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %>
-        </td>
-      </tr>
+      <tbody>
+        <% @apps.each do |app| %>
+          <tr>
+            <td><%= app.id %></td>
+            <td><%= app.name %></td>
+            <td><%= app.platform %></td>
+            <td><%= app.devices_count %></td>
+            <td><%= app.devices_count - app.inactive_devices_count %></td>
+            <td>
+              <%= link_to 'Show', app_path(app), class: "btn btn-default btn-xs" %>
+              <%= link_to 'Edit', edit_app_path(app), class: "btn btn-primary btn-xs" %>
+              <%= link_to 'Destroy', app, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-2">
+    <%= search_form_for @q, :url => apps_path do |f| %>
+      <div class="form-group">
+        <%= f.label "Nome" %>
+        <%= f.text_field :name_eq, class: "form-control" %>
+      </div>
+      <%= f.submit "Search", class: "btn btn-primary btn-block" %>
     <% end %>
-  </tbody>
-</table>
+  </div>
+</div>
