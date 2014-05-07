@@ -5,12 +5,15 @@ module Pushar
     module V1
       class SubscriptionsController < Pushar::Api::V1::ApplicationController
         skip_before_filter :verify_authenticity_token
-        before_action :set_subscription, only: [:destroy]
+        before_action :set_subscription, only: [:create, :destroy]
         respond_to :json
 
         def create
-          @subscription = ::Pushar::Core::Subscription.new(subscription_params)
-
+          if @subscription
+            @subscription.unsubscribed_at = nil
+          else
+            @subscription = ::Pushar::Core::Subscription.new(subscription_params)
+          end
           if @subscription.save
             render :nothing => true, :status => :ok
           else
@@ -28,7 +31,7 @@ module Pushar
 
         private
           def set_subscription
-            @subscription = ::Pushar::Core::Subscription.find(params[:id])
+            @subscription = ::Pushar::Core::Subscription.find_by_id(params[:id])
           end
 
           def subscription_params
