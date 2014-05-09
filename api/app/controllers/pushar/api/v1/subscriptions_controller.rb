@@ -31,7 +31,8 @@ module Pushar
 
         private
           def set_subscription
-            @subscription = ::Pushar::Core::Subscription.find_by_id(params[:id])
+            @subscription = ::Pushar::Core::Subscription.unscoped.find_by_id(params[:id]) || 
+                              ::Pushar::Core::Subscription.unscoped.find_by_email(subscription_params[:email])
           end
 
           def subscription_params
