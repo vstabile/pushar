@@ -1,6 +1,6 @@
 require "jquery-rails"
 require "sass"
-require "bootstrap-rails"
+require "bootstrap-sass"
 
 module Pushar
   module Admin
