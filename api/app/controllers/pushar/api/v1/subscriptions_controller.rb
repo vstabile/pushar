@@ -1,4 +1,5 @@
 # require_dependency "api/application_controller"
+require "open-uri"
 
 module Pushar
   module Api
@@ -23,6 +24,35 @@ module Pushar
 
         def destroy
           if @subscription && @subscription.destroy
+            render :nothing => true, :status => :ok
+          else
+            render :nothing => true, :status => :unprocessable_entity
+          end
+        end
+
+        # PUT /feedback
+        def feedback
+          response = JSON.parse(request.body.read)
+          if response["Type"] == "SubscriptionConfirmation"
+            data = URI.parse(response["SubscribeURL"]).read
+            render :nothing => true, :status => :ok
+          elsif response["Type"] == "Notification"
+            message = JSON.parse(response["Message"])
+            if message["notificationType"] == "Bounce"
+              recipients = message["bounce"]["bouncedRecipients"]
+              subscription_emails = recipients.collect {|recipient| recipient["emailAddress"]}
+              subscription_emails.each do |email|
+                subscription = Pushar::Core::Subscription.find_by_email(email)
+                subscription.update_attributes(:unsubscribed_at => Time.now, :unsubscribe_reason => "Bounce")
+              end
+            elsif message["notificationType"] == "Complaint"
+              recipients = message["complaint"]["complainedRecipients"]
+              subscription_emails = recipients.collect {|recipient| recipient["emailAddress"]}
+              subscription_emails.each do |email|
+                subscription = Pushar::Core::Subscription.find_by_email(email)
+                subscription.update_attributes(:unsubscribed_at => Time.now, :unsubscribe_reason => "Marked as Spam")
+              end
+            end
             render :nothing => true, :status => :ok
           else
             render :nothing => true, :status => :unprocessable_entity
