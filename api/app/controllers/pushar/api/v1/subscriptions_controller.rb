@@ -50,7 +50,7 @@ module Pushar
               subscription_emails = recipients.collect {|recipient| recipient["emailAddress"]}
               subscription_emails.each do |email|
                 subscription = Pushar::Core::Subscription.find_by_email(email)
-                subscription.update_attributes(:unsubscribed_at => Time.now, :unsubscribe_reason => "Marked as Spam")
+                subscription.update_attributes(:unsubscribed_at => Time.now, :unsubscribe_reason => "Complaint")
               end
             end
             render :nothing => true, :status => :ok
