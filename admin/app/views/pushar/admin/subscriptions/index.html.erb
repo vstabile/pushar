@@ -29,7 +29,7 @@
             <td><%= l subscription.last_opened_at, format: :short if subscription.last_opened_at %></td>
             <td><%= l subscription.created_at, format: :short %></td>
             <td><%= l subscription.unsubscribed_at, format: :short if subscription.unsubscribed_at %></td>
-            <td><%= l subscription.unsubscribe_reason, format: :short if subscription.unsubscribe_reason %></td>
+            <td><%= subscription.unsubscribe_reason %></td>
             <td>
               <%= link_to 'Show', subscription, class: "btn btn-default btn-xs" %>
               <%= link_to 'Edit', edit_subscription_path(subscription), class: "btn btn-primary btn-xs" %>
