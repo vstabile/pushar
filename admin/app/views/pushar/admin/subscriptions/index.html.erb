@@ -14,6 +14,7 @@
           <th><%= sort_link @q, :last_opened_at, "Last Opened At" %></th>
           <th><%= sort_link @q, :created_at, "Subscribed At" %></th>
           <th><%= sort_link @q, :unsubscribed_at, "Unsubscribed At" %></th>
+          <th><%= sort_link @q, :unsubscribe_reason, "Reason" %></th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -28,6 +29,7 @@
             <td><%= l subscription.last_opened_at, format: :short if subscription.last_opened_at %></td>
             <td><%= l subscription.created_at, format: :short %></td>
             <td><%= l subscription.unsubscribed_at, format: :short if subscription.unsubscribed_at %></td>
+            <td><%= l subscription.unsubscribe_reason, format: :short if subscription.unsubscribe_reason %></td>
             <td>
               <%= link_to 'Show', subscription, class: "btn btn-default btn-xs" %>
               <%= link_to 'Edit', edit_subscription_path(subscription), class: "btn btn-primary btn-xs" %>
