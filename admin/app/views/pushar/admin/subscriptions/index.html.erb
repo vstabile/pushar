@@ -33,8 +33,8 @@
             <td>
               <%= link_to 'Show', subscription, class: "btn btn-default btn-xs" %>
               <%= link_to 'Edit', edit_subscription_path(subscription), class: "btn btn-primary btn-xs" %>
-              <%= link_to 'Unsubscribe', subscription, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %>
-              <%= link_to 'Subscribe', resubscribe_subscription_path(subscription), class: "btn btn-success btn-xs" %>
+              <%= link_to 'Unsubscribe', subscription, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" if subscription.unsubscribed_at.blank? %>
+              <%= link_to 'Subscribe', resubscribe_subscription_path(subscription), class: "btn btn-success btn-xs" if subscription.unsubscribed_at %>
             </td>
           </tr>
         <% end %>
