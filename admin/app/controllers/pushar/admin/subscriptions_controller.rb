@@ -3,7 +3,7 @@
 module Pushar
   module Admin
     class SubscriptionsController < ::Pushar::Admin::ApplicationController
-      before_action :set_subscription, only: [:show, :edit, :update, :destroy]
+      before_action :set_subscription, only: [:show, :edit, :update, :destroy, :resubscribe]
 
       # GET /subscriptions
       def index
@@ -47,8 +47,19 @@ module Pushar
 
       # DELETE /subscriptions/1
       def destroy
-        @subscription.update_attribute(:unsubscribed_at, Time.now)
-        redirect_to subscriptions_url, notice: 'Subscription was successfully destroyed.'
+        if @subscription.update_attribute(:unsubscribed_at, Time.now)
+          redirect_to subscriptions_url, notice: 'Subscription was successfully destroyed.'
+        else
+          redirect_to subscriptions_url, alert: 'Subscription coudn\'t be destroyed'
+        end
+      end
+
+      def resubscribe
+        if @subscription.update_attributes(:unsubscribed_at => nil, :unsubscribe_reason => nil)
+          redirect_to subscriptions_url, notice: 'Subscription was successfully updated.'
+        else
+          redirect_to subscriptions_url, alert: 'Subscription coudn\'t be updated'
+        end
       end
 
       private
