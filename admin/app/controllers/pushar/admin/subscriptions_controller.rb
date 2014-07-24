@@ -30,7 +30,7 @@ module Pushar
         @subscription = ::Pushar::Core::Subscription.new(subscription_params)
 
         if @subscription.save
-          redirect_to @subscription, notice: 'Subscription was successfully created.'
+          redirect_to subscriptions_path(:tenant_id => @subscription.tenant_id), notice: 'Subscription was successfully created.'
         else
           render action: 'new'
         end
@@ -39,7 +39,7 @@ module Pushar
       # PATCH/PUT /subscriptions/1
       def update
         if @subscription.update(subscription_params)
-          redirect_to @subscription, notice: 'Subscription was successfully updated.'
+          redirect_to subscriptions_path(:tenant_id => @subscription.tenant_id), notice: 'Subscription was successfully updated.'
         else
           render action: 'edit'
         end
@@ -47,18 +47,19 @@ module Pushar
 
       # DELETE /subscriptions/1
       def destroy
+        puts "+++++++++++++++++++++++++++++++++++++++++++++", @subscription.tenant_id
         if @subscription.update_attribute(:unsubscribed_at, Time.now)
-          redirect_to subscriptions_url, notice: 'Subscription was successfully destroyed.'
+          redirect_to subscriptions_path(:tenant_id => @subscription.tenant_id), notice: 'Subscription was successfully destroyed.'
         else
-          redirect_to subscriptions_url, alert: 'Subscription coudn\'t be destroyed'
+          redirect_to subscriptions_path(:tenant_id => @subscription.tenant_id), alert: 'Subscription coudn\'t be destroyed'
         end
       end
 
       def resubscribe
         if @subscription.update_attributes(:unsubscribed_at => nil, :unsubscribe_reason => nil)
-          redirect_to subscriptions_url, notice: 'Subscription was successfully updated.'
+          redirect_to subscriptions_path(:tenant_id => @subscription.tenant_id), notice: 'Subscription was successfully updated.'
         else
-          redirect_to subscriptions_url, alert: 'Subscription coudn\'t be updated'
+          redirect_to subscriptions_path(:tenant_id => @subscription.tenant_id), alert: 'Subscription coudn\'t be updated'
         end
       end
 

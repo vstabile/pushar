@@ -32,6 +32,10 @@
     <%= f.label :unsubscribed_at %>
     <%= f.datetime_select :unsubscribed_at, {:include_blank => true, :default => nil}, class: "form-control" %>
   </div>
+  <div class="form-group">
+    <%= f.label :tenant_id %>
+    <%= f.number_field :tenant_id, class: "form-control" %>
+  </div>
   <div class="actions">
     <%= f.submit class: "btn btn-primary" %>
   </div>

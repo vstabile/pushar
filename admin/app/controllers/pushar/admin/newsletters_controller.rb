@@ -30,7 +30,7 @@ module Pushar
         @newsletter = ::Pushar::Core::Newsletter.new(newsletter_params)
 
         if @newsletter.save
-          redirect_to @newsletter, notice: 'Newsletter was successfully created.'
+          redirect_to newsletters_path(:tenant_id => @newsletter.tenant_id), notice: 'Newsletter was successfully created.'
         else
           render :new
         end
@@ -39,7 +39,7 @@ module Pushar
       # PATCH/PUT /newsletters/1
       def update
         if @newsletter.update(newsletter_params)
-          redirect_to @newsletter, notice: 'Newsletter was successfully updated.'
+          redirect_to newsletters_path(:tenant_id => @newsletter.tenant_id), notice: 'Newsletter was successfully updated.'
         else
           render :edit
         end
@@ -48,7 +48,7 @@ module Pushar
       # DELETE /newsletters/1
       def destroy
         @newsletter.destroy
-        redirect_to newsletters_url, notice: 'Newsletter was successfully destroyed.'
+        redirect_to newsletters_path(:tenant_id => @newsletter.tenant_id), notice: 'Newsletter was successfully destroyed.'
       end
 
       private
