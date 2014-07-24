@@ -21,17 +21,19 @@ module Pushar
                   newsletter_id = value
                 when('email')
                   email = value
+                when('tenant_id')
+                  tenant_id = value
               end
             end
 
             if newsletter_id && email
-              subscription = Pushar::Core::Subscription.find_by_email(email)
+              subscription = Pushar::Core::Subscription.where(:tenant_id => tenant_id).find_by_email(email)
               if !subscription.blank?
                 subscription.open_count += 1
                 subscription.last_opened_at = Time.now
                 subscription.save(:validate => false)
               end
-              newsletter = Pushar::Core::Newsletter.find_by_id(newsletter_id)
+              newsletter = Pushar::Core::Newsletter.where(:tenant_id => tenant_id).find_by_id(newsletter_id)
               if !newsletter.blank?
                 newsletter.increment!(:open_count)
               end
