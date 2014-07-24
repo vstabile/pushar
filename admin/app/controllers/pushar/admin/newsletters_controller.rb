@@ -7,7 +7,7 @@ module Pushar
 
       # GET /newsletters
       def index
-        @q = ::Pushar::Core::Newsletter.unscoped.search(params[:q])
+        @q = ::Pushar::Core::Newsletter.unscoped.where(:tenant_id => @tenant_id).search(params[:q])
         @q.sorts = 'created_at desc' if @q.sorts.empty?
         @newsletters = @q.result(distinct: true).page(params[:page]).per(50)
       end
@@ -59,7 +59,7 @@ module Pushar
 
         # Only allow a trusted parameter "white list" through.
         def newsletter_params
-          params.require(:newsletter).permit(:name, :open_count, :send_count, :sent_at)
+          params.require(:newsletter).permit(:name, :open_count, :send_count, :sent_at, :tenant_id)
         end
     end
   end

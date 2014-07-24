@@ -42,14 +42,14 @@ module Pushar
               recipients = message["bounce"]["bouncedRecipients"]
               subscription_emails = recipients.collect {|recipient| recipient["emailAddress"]}
               subscription_emails.each do |email|
-                subscription = Pushar::Core::Subscription.find_by_email(email)
+                subscription = Pushar::Core::Subscription.where(:tenant_id => params[:tenant_id]).find_by_email(email)
                 subscription.update_attributes(:unsubscribed_at => Time.now, :unsubscribe_reason => "Bounce")
               end
             elsif message["notificationType"] == "Complaint"
               recipients = message["complaint"]["complainedRecipients"]
               subscription_emails = recipients.collect {|recipient| recipient["emailAddress"]}
               subscription_emails.each do |email|
-                subscription = Pushar::Core::Subscription.find_by_email(email)
+                subscription = Pushar::Core::Subscription.where(:tenant_id => params[:tenant_id]).find_by_email(email)
                 subscription.update_attributes(:unsubscribed_at => Time.now, :unsubscribe_reason => "Complaint")
               end
             end
@@ -62,11 +62,11 @@ module Pushar
         private
           def set_subscription
             @subscription = ::Pushar::Core::Subscription.unscoped.find_by_id(params[:id]) || 
-                              ::Pushar::Core::Subscription.unscoped.find_by_email(subscription_params[:email])
+                              ::Pushar::Core::Subscription.unscoped.where(:tenant_id => subscription_params[:tenant_id]).find_by_email(subscription_params(:email))
           end
 
           def subscription_params
-            params.require(:subscription).permit(:email, :send_count, :open_count, :last_opened_at, :unsubscribed_at)
+            params.require(:subscription).permit(:email, :send_count, :open_count, :last_opened_at, :unsubscribed_at, :tenant_id)
           end
       end
     end

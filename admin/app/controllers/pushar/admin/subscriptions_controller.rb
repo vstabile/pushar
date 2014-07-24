@@ -7,7 +7,7 @@ module Pushar
 
       # GET /subscriptions
       def index
-        @q = ::Pushar::Core::Subscription.unscoped.search(params[:q])
+        @q = ::Pushar::Core::Subscription.unscoped.where(:tenant_id => @tenant_id).search(params[:q])
         @q.sorts = 'created_at desc' if @q.sorts.empty?
         @subscriptions = @q.result(distinct: true).page(params[:page]).per(50)
       end
@@ -70,7 +70,7 @@ module Pushar
 
         # Only allow a trusted parameter "white list" through.
         def subscription_params
-          params.require(:subscription).permit(:email, :send_count, :open_count, :last_opened_at, :unsubscribed_at)
+          params.require(:subscription).permit(:email, :send_count, :open_count, :last_opened_at, :unsubscribed_at, :tenant_id)
         end
     end
   end

@@ -1,9 +1,9 @@
 module Pushar
   module Core
     class Subscription < ActiveRecord::Base
-      validates :email, uniqueness: true, email: true
+      validates :email, uniqueness: { :scope => :tenant_id }, email: true
 
-      default_scope { where("unsubscribed_at IS NULL" ) }
+      default_scope { where("unsubscribed_at IS NULL") }
 
       # Get a subscription from a token
       def self.from_token(token, secret_key_base)
