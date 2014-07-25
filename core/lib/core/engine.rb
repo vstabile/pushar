@@ -15,5 +15,10 @@ module Pushar
         app.middleware.use Pushar::Core::EmailTracker::Rack
       end
     end
+
+    def self.config(&block)
+      yield Engine.config if block
+      Engine.config
+    end
   end
 end

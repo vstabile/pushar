@@ -59,6 +59,19 @@ module Pushar
           end
         end
 
+        def unsubscribe
+          token = params[:token]
+          redirect_path = params[:redirect_path] || '/'
+
+          subscription = Pushar::Core::Subscription.from_token(token)
+          if subscription
+            subscription.update_attribute :unsubscribed_at, Time.now
+            redirect_to redirect_path, :notice => "O email #{subscription.email} foi descadastrado."
+          else
+            redirect_to redirect_path, :notice => "Este link é inválido"
+          end
+        end
+
         private
           def set_subscription
             @subscription = ::Pushar::Core::Subscription.unscoped.find_by_id(params[:id]) || 
