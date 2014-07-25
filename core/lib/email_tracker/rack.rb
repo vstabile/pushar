@@ -13,6 +13,7 @@ module Pushar
             details = Base64.decode64(Regexp.last_match[1])
             newsletter_id = nil
             email = nil
+            tenant_id = nil
 
             details.split('&').each do |kv|
               (key, value) = kv.split('=')
@@ -22,7 +23,7 @@ module Pushar
                 when('email')
                   email = value
                 when('tenant_id')
-                  tenant_id = value || nil
+                  tenant_id = value
               end
             end
 
