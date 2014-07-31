@@ -1,0 +1,43 @@
+<div class="page-header">
+  <h1>Notifications</h1>
+  <%= link_to 'New Notification', new_notification_path, class: "btn btn-primary btn-top" %>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th><%= sort_link @q, :id, "#" %></th>
+          <th><%= sort_link @q, :app, "App" %></th>
+          <th><%= sort_link @q, :platform, "Platform" %></th>
+          <th><%= sort_link @q, :message, "Message" %></th>
+          <th><%= sort_link @q, :options, "Options" %></th>
+          <th><%= sort_link @q, :sent_at, "Sent" %></th>
+          <th><%= sort_link @q, :updated_at, "Updated" %></th>
+          <th><%= sort_link @q, :created_at, "Created" %></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @notifications.each do |notification| %>
+          <tr>
+            <td><%= notification.id %></td>
+            <td><%= link_to notification.app.name, app_path(notification.app_id) %></td>
+            <td><%= notification.app.platform %></td>
+            <td><%= notification.message %></td>
+            <td><%= notification.options %></td>
+            <td><%= l notification.sent_at, format: :short if notification.sent_at %></td>
+            <td><%= l notification.updated_at, format: :short %></td>
+            <td><%= l notification.created_at, format: :short %></td>
+            <td>
+              <%= link_to 'Show', notification, class: "btn btn-default btn-xs" %>
+              <%= link_to 'Edit', edit_notification_path(notification), class: "btn btn-primary btn-xs" %>
+              <%= link_to 'Destroy', notification, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

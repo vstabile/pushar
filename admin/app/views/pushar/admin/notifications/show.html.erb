@@ -1,0 +1,24 @@
+<div class="page-header">
+  <h1>Notification</h1>
+  <%= link_to 'Back', notifications_path, class: "btn btn-default btn-top" %>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>App:</dt>
+  <dd><%= link_to @notification.app.name_with_platform, app_path(@notification.app_id) %></dd>
+</dl>
+
+<dl class="dl-horizontal">
+  <dt>Message:</dt>
+  <dd><pre><%= @notification.message %></pre></dd>
+</dl>
+
+<dl class="dl-horizontal">
+  <dt>Options:</dt>
+  <dd><%= @notification.options %></dd>
+</dl>
+
+<dl class="dl-horizontal">
+  <dt>Sent at:</dt>
+  <dd><%= @notification.sent_at %></dd>
+</dl>

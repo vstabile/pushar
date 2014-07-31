@@ -2,6 +2,7 @@ module Pushar
   module Core
     class App < ActiveRecord::Base
       has_many :devices
+      has_many :notifications
 
       validates :name, :platform, presence: true
       validates :platform, inclusion: { in: %w(android ios amazon), message: "%{value} is not a valid platform" }

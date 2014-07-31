@@ -6,6 +6,9 @@ module Pushar
       get "resubscribe", :on => :member
     end
     resources :newsletters
+    resources :notifications do
+      get :publish, :on => :member
+    end
 
     root to: "subscriptions#index"
   end
