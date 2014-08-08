@@ -7,7 +7,7 @@ module Pushar
 
       # GET /subscriptions
       def index
-        @q = ::Pushar::Core::Subscription.unscoped.where(:tenant_id => params[:tenant_id]).search(params[:q])
+        @q = ::Pushar::Core::Subscription.unscoped.where(:tenant_id => @tenant_id).search(params[:q])
         @q.sorts = 'created_at desc' if @q.sorts.empty?
         @subscriptions = @q.result(distinct: true).page(params[:page]).per(50)
       end

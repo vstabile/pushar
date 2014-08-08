@@ -5,7 +5,7 @@ module Pushar
 
       private
         def set_tenant_id
-            @tenant_id = params[:tenant_id]
+            @tenant_id = params[:tenant_id] || params[:q][:tenant_id_eq]
         end
     end
   end

@@ -47,7 +47,8 @@
     <%= search_form_for @q, :url => subscriptions_path do |f| %>
       <div class="form-group">
         <%= f.label "Email" %>
-        <%= f.text_field :email_eq, class: "form-control" %>
+        <%= f.text_field :email_cont, class: "form-control" %>
+        <%= f.hidden_field :tenant_id_eq, :value => @tenant_id %>
       </div>
       <%= f.submit "Search", class: "btn btn-primary btn-block" %>
     <% end %>
