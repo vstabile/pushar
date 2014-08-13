@@ -1,6 +1,6 @@
 <div class="page-header">
   <h1>New app</h1>
-  <%= link_to 'Back', apps_path, class: "btn btn-default btn-top" %>
+  <%= link_to 'Back', apps_path(:tenant_id => @tenant_id), class: "btn btn-default btn-top" %>
 </div>
 
 <%= render 'form' %>

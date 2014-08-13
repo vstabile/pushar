@@ -5,6 +5,7 @@ module Pushar
     class NotificationsController < Pushar::Admin::ApplicationController
       before_action :set_notification, only: [:show, :edit, :update, :destroy, :publish]
       before_action :config_notification, only: [:publish]
+      before_action :set_tenant
 
       # GET /notifications
       def index

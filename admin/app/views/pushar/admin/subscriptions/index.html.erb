@@ -1,6 +1,6 @@
 <div class="page-header">
   <h1>Subscriptions</h1>
-  <%= link_to 'New Subscription', new_subscription_path, class: "btn btn-primary btn-top" %>
+  <%= link_to 'New Subscription', new_subscription_path(:tenant_id => @tenant_id), class: "btn btn-primary btn-top" %>
 </div>
 <div class="row">
   <div class="col-md-10">

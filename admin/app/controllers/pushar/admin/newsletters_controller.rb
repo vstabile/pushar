@@ -4,6 +4,7 @@ module Pushar
   module Admin
     class NewslettersController < Pushar::Admin::ApplicationController
       before_action :set_newsletter, only: [:show, :edit, :update, :destroy]
+      before_action :set_tenant
 
       # GET /newsletters
       def index
@@ -60,6 +61,11 @@ module Pushar
         # Only allow a trusted parameter "white list" through.
         def newsletter_params
           params.require(:newsletter).permit(:name, :open_count, :send_count, :sent_at, :tenant_id)
+        end
+
+        # Set tenant
+        def set_tenant
+          @tenant_id = newsletter_params(:tenant_id) || nil
         end
     end
   end
