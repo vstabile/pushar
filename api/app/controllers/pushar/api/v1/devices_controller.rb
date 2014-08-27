@@ -10,8 +10,10 @@ module Pushar
 
         def create
           @device = ::Pushar::Core::Device.new if @device.nil?
-          @device.user_id = current_user.id if current_user
+          # @device.user_id = current_user.id if current_user
           @device.updated_at = Time.now unless @device.new_record?
+          app = ::Pushar::Core::App.where(:platform => device_params[:os_name]).find_by_name(device_params[:app_name])
+          @device.app_id = app.id
           @device.update_attributes(device_params)
           respond_with @device
         end

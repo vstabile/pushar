@@ -6,6 +6,7 @@ module Pushar
       resources :subscriptions, :only => [:create, :destroy] do
         get "unsubscribe", :on => :collection
       end
+      resources :devices
       post "feedback" => "subscriptions#feedback"
     end
   end

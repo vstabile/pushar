@@ -14,7 +14,7 @@
 
   <div class="form-group">
     <%= f.label :app_id %>
-    <%= f.collection_select :app_id, Pushar::App.all, :id, :name_with_platform, {}, class: "form-control" %>
+    <%= f.collection_select :app_id, Pushar::Core::App.all, :id, :name_with_platform, {}, class: "form-control" %>
   </div>
   <div class="form-group">
     <%= f.label :token %>

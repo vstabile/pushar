@@ -4,11 +4,11 @@ module Pushar
   module Admin
     class SubscriptionsController < ::Pushar::Admin::ApplicationController
       before_action :set_subscription, only: [:show, :edit, :update, :destroy, :resubscribe]
-      before_action :set_tenant
+      # before_action :set_tenant
 
       # GET /subscriptions
       def index
-        @q = ::Pushar::Core::Subscription.unscoped.where(:tenant_id => @tenant_id).search(params[:q])
+        @q = ::Pushar::Core::Subscription.unscoped.search(params[:q])
         @q.sorts = 'created_at desc' if @q.sorts.empty?
         @subscriptions = @q.result(distinct: true).page(params[:page]).per(50)
       end
@@ -31,7 +31,7 @@ module Pushar
         @subscription = ::Pushar::Core::Subscription.new(subscription_params)
 
         if @subscription.save
-          redirect_to subscriptions_path(:tenant_id => @tenant_id), notice: 'Subscription was successfully created.'
+          redirect_to subscriptions_path, notice: 'Subscription was successfully created.'
         else
           render action: 'new'
         end
@@ -40,7 +40,7 @@ module Pushar
       # PATCH/PUT /subscriptions/1
       def update
         if @subscription.update(subscription_params)
-          redirect_to subscriptions_path(:tenant_id => @tenant_id), notice: 'Subscription was successfully updated.'
+          redirect_to subscriptions_path, notice: 'Subscription was successfully updated.'
         else
           render action: 'edit'
         end
@@ -49,17 +49,17 @@ module Pushar
       # DELETE /subscriptions/1
       def destroy
         if @subscription.update_attribute(:unsubscribed_at, Time.now)
-          redirect_to subscriptions_path(:tenant_id => @tenant_id), notice: 'Subscription was successfully destroyed.'
+          redirect_to subscriptions_path, notice: 'Subscription was successfully destroyed.'
         else
-          redirect_to subscriptions_path(:tenant_id => @tenant_id), alert: 'Subscription coudn\'t be destroyed'
+          redirect_to subscriptions_path, alert: 'Subscription coudn\'t be destroyed'
         end
       end
 
       def resubscribe
         if @subscription.update_attributes(:unsubscribed_at => nil, :unsubscribe_reason => nil)
-          redirect_to subscriptions_path(:tenant_id => @tenant_id), notice: 'Subscription was successfully updated.'
+          redirect_to subscriptions_path, notice: 'Subscription was successfully updated.'
         else
-          redirect_to subscriptions_path(:tenant_id => @tenant_id), alert: 'Subscription coudn\'t be updated'
+          redirect_to subscriptions_path, alert: 'Subscription coudn\'t be updated'
         end
       end
 
@@ -75,9 +75,9 @@ module Pushar
         end
 
         # Set tenant
-        def set_tenant
-          @tenant_id = subscription_params(:tenant_id) || nil
-        end
+        # def set_tenant
+        #   @tenant_id = subscription_params(:tenant_id) || nil
+        # end
     end
   end
 end

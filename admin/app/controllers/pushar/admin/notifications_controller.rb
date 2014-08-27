@@ -1,11 +1,12 @@
 # require_dependency "admin/application_controller"
+require 'pushmeup'
 
 module Pushar
   module Admin
     class NotificationsController < Pushar::Admin::ApplicationController
       before_action :set_notification, only: [:show, :edit, :update, :destroy, :publish]
       before_action :config_notification, only: [:publish]
-      before_action :set_tenant
+      # before_action :set_tenant
 
       # GET /notifications
       def index
@@ -60,21 +61,21 @@ module Pushar
             APNS.start_persistence
             notifications = []
             @notification.app.devices.find_each do |device|
-              notifications.push(APNS::Notification.new(device.token, :alert => @notification.message))
+              notifications.push(APNS::Notification.new(device.token, :alert => @notification.message[:alert], :badge => @notification.message[:badge], :sound => @notification.message[:sound], :other => @notification.options))
             end
             APNS.send_notifications(notifications)
           # Android
           when @notification.app.android?
             notifications = []
-            @notifications.app.devices.find_each do |device|
-              notifications.push(GCM::Notification.new(device.token, @notification.message, @notification.options))
+            @notification.app.devices.find_each do |device|
+              notifications.push(GCM::Notification.new(device.token, :data => @notification.message, :options => @notification.options))
             end
             GCM.send_notifications(notifications)
           # Kindle
           when @notification.app.amazon?
             notifications = []
-            @notifications.app.devices.find_each do |device|
-              notifications.push(FIRE::Notification.new(device.token, @notification.message, @notification.options))
+            @notification.app.devices.find_each do |device|
+              notifications.push(FIRE::Notification.new(device.token, :data => @notification.message, :options => @notification.options))
             end
             FIRE.send_notifications(notifications)
         end
@@ -89,7 +90,7 @@ module Pushar
 
         # Only allow a trusted parameter "white list" through.
         def notification_params
-          params.require(:notification).permit(:message, :options, :app_id, :sent_at)
+          params.require(:notification).permit(:message, :options, :app_id, :sent_at, :notification_params_attributes => [:id, :key, :value, :_destroy], :notification_options_attributes => [:id, :key, :value, :_destroy])
         end
 
         def config_notification

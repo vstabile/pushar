@@ -14,23 +14,30 @@
 
   <div class="form-group">
     <%= f.label :app_id %>
-    <%= f.collection_select :app_id, Pushar::App.all, :id, :name_with_platform, {}, class: "form-control" %>
+    <%= f.collection_select :app_id, Pushar::Core::App.all, :id, :name_with_platform, {}, class: "form-control" %>
   </div>
+
   <div class="form-group">
-    <%= f.label :message %>
-    <%= f.text_area :message, class: "form-control" %>
+    <%= f.fields_for :notification_params do |builder| %>
+      <%= render "notification_param_fields", :f => builder %>
+    <% end %>
+    <%= link_to_add_fields "Add Param", f, :notification_params, "btn btn-success" %>
   </div>
+
   <div class="form-group">
-    <%= f.label :options %>
-    <%= f.text_area :options, class: "form-control" %>
+    <%= f.fields_for :notification_options do |builder| %>
+      <%= render "notification_option_fields", :f => builder %>
+    <% end %>
+    <%= link_to_add_fields "Add Option", f, :notification_options, "btn btn-success" %>
   </div>
+
   <div class="form-group">
     <%= f.label :sent_at, :class => "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.datetime_select(:sent_at, default: @notification.sent_at, :include_blank => true) %>
     </div>
   </div>
-  <div class="actions">
+  <div class="actions col-sm-10">
     <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>

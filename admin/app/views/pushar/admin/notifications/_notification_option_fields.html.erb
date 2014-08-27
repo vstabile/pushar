@@ -1,0 +1,8 @@
+<div class="form-group nestedfield">
+  <%= f.label :key, "Key" %>
+  <%= f.text_field :key, :class => "form-control" %>
+  <%= f.label :value, "Value" %>
+  <%= f.text_field :value, :class => "form-control" %>
+
+  <%= link_to_remove_fields "Remove Option", f, "btn btn-danger" %>
+</div>
