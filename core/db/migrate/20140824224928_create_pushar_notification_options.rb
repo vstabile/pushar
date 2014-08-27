@@ -8,8 +8,8 @@ class CreatePusharNotificationOptions < ActiveRecord::Migration
       t.timestamps
     end
 
-    remove_column :pushar_core_notification_params, :message
-    remove_column :pushar_core_notification_params, :options
+    remove_column :pushar_core_notification, :message
+    remove_column :pushar_core_notification, :options
 
     add_index :pushar_core_notification_options, :notification_id
   end
