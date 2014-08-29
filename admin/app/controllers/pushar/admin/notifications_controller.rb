@@ -61,9 +61,9 @@ module Pushar
             APNS.start_persistence
             notifications = []
             @notification.app.devices.find_each do |device|
-              notifications.push(APNS::Notification.new(device.token, :alert => @notification.message[:alert], :badge => @notification.message[:badge], :sound => @notification.message[:sound], :other => @notification.options))
+             notifications.push(APNS::Notification.new(device.token, :alert => @notification.message[:alert], :badge => @notification.message[:badge], :sound => @notification.message[:sound], :other => @notification.options))
             end
-            APNS.send_notifications(notifications)
+            puts APNS.send_notifications(notifications)
             APNS.stop_persistence
           # Android
           when @notification.app.android?
@@ -71,14 +71,14 @@ module Pushar
             @notification.app.devices.find_each do |device|
               notifications.push(GCM::Notification.new(device.token, :data => @notification.message, :options => @notification.options))
             end
-            GCM.send_notifications(notifications)
+            puts GCM.send_notifications(notifications)
           # Kindle
           when @notification.app.amazon?
             notifications = []
             @notification.app.devices.find_each do |device|
               notifications.push(FIRE::Notification.new(device.token, :data => @notification.message, :options => @notification.options))
             end
-            FIRE.send_notifications(notifications)
+            puts FIRE.send_notifications(notifications)
         end
         @notification.update_attribute(:sent_at, Time.now)
         redirect_to notifications_path, notice: 'Notification was successfully sent.'
@@ -102,7 +102,7 @@ module Pushar
               APNS.host = Rails.env == "production" ? 'gateway.push.apple.com' : 'gateway.sandbox.push.apple.com'
               APNS.port = 2195
               APNS.pem = Rails.env == "production" ? @notification.app.apn_prod_cert : @notification.app.apn_dev_cert
-              APNS.pass = @notification.app.apn_app_key
+              APNS.pass = "" # @notification.app.apn_app_key
             # Android
             when @notification.app.android?
               GCM.host = 'https://android.googleapis.com/gcm/send'
