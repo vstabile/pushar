@@ -55,31 +55,7 @@ module Pushar
       end
 
       def publish
-        case 
-          # iOS
-          when @notification.app.ios?
-            APNS.start_persistence
-            notifications = []
-            @notification.app.devices.find_each do |device|
-             notifications.push(APNS::Notification.new(device.token, :alert => @notification.message[:alert], :badge => @notification.message[:badge], :sound => @notification.message[:sound], :other => @notification.options))
-            end
-            puts APNS.send_notifications(notifications)
-            APNS.stop_persistence
-          # Android
-          when @notification.app.android?
-            notifications = []
-            @notification.app.devices.find_each do |device|
-              notifications.push(GCM::Notification.new(device.token, :data => @notification.message, :options => @notification.options))
-            end
-            puts GCM.send_notifications(notifications)
-          # Kindle
-          when @notification.app.amazon?
-            notifications = []
-            @notification.app.devices.find_each do |device|
-              notifications.push(FIRE::Notification.new(device.token, :data => @notification.message, :options => @notification.options))
-            end
-            puts FIRE.send_notifications(notifications)
-        end
+        @notification.publish!
         @notification.update_attribute(:sent_at, Time.now)
         redirect_to notifications_path, notice: 'Notification was successfully sent.'
       end
@@ -93,26 +69,6 @@ module Pushar
         # Only allow a trusted parameter "white list" through.
         def notification_params
           params.require(:notification).permit(:message, :options, :app_id, :sent_at, :notification_params_attributes => [:id, :key, :value, :_destroy], :notification_options_attributes => [:id, :key, :value, :_destroy])
-        end
-
-        def config_notification
-          case
-            # iOS
-            when @notification.app.ios?
-              APNS.host = Rails.env == "production" ? 'gateway.push.apple.com' : 'gateway.sandbox.push.apple.com'
-              APNS.port = 2195
-              APNS.pem = Rails.env == "production" ? @notification.app.apn_prod_cert : @notification.app.apn_dev_cert
-              APNS.pass = "" # @notification.app.apn_app_key
-            # Android
-            when @notification.app.android?
-              GCM.host = 'https://android.googleapis.com/gcm/send'
-              GCM.format = :json
-              GCM.key = @notification.app.gcm_api_key   
-            # Kindle
-            when @notification.app.amazon?
-              FIRE.client_id = @notification.app.adm_client_id
-              FIRE.client_secret = @notification.app.adm_client_secret
-          end
         end
     end
   end
